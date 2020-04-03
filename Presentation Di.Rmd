@@ -1,0 +1,53 @@
+---
+title: "Shiny App. Probability of Surviving on Titanic"
+author: "Dinara Satayeva"
+date: "4/3/2020"
+output:
+  slidy_presentation: default
+  ioslides_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Overview
+
+The Shiny App: Probability of Surviving on Titanic is an interactive app that allows user to input some numbers and based on the numbers calculates probability of survival on Titanic. 
+
+Moreover, the app shows a little os stats about people that were on Titanic, represented in graphs.
+
+"Titanic.csv" dataset was used for calculations. 
+
+First we built a logistic model, with categories shown on next slide as predictors. 
+
+Then we used the newly produced model to predict aginst new dataset, built based on user input.
+
+## Input numbers
+
+- Age
+- Sex
+- Class
+- Fare
+- Number of children/parents aboard
+- Number of siblings/spouses aboard
+
+## Overview of the dataset
+
+```{r echo = TRUE, comment = ""}
+data<-read.csv("titanic.csv")
+dim(data)
+head(data)
+```
+
+## Summary of the logistic model
+
+```{r }
+fit<-glm(survived ~ pclass + sex + age + sib_sp + par_ch + fare, data = data, family = "binomial")
+summary(fit)
+```
+
+## Ploting data
+```{r}
+pairs(~pclass+sex+age+sib_sp+par_ch+fare, data=data, cex.axis=1.5)
+```
